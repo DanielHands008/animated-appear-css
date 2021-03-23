@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Animated Appear CSS</title>
+  <link rel="stylesheet" href="dist/animated-appear.min.css" type="text/css">
+  <link rel="stylesheet" href="dist/animated-appear-timings.min.css" type="text/css">
+  <link rel="stylesheet" href="dist/animations/all.min.css" type="text/css">
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+
+    #container {
+      width: 800px;
+      height: 600px;
+      border: 1px solid black;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      overflow: auto;
+    }
+
+    #container>div {
+      width: 80px;
+      height: 80px;
+      border: 1px solid black;
+      margin: 6px;
+      background-color: brown;
+      background-image: url(https://placekitten.com/100/100);
+    }
+
+    input[type=range] {
+      margin-bottom: -8px;
+    }
+
+    .controls-container {
+      max-width: 800px;
+    }
+
+    .headder {
+      font-size: 24px;
+      margin-top: 16px;
+      margin-bottom: 4px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container" class="animate-appear all-children show-all">
+  </div>
+  <div class="headder">Container Controls</div>
+  <div class="controls-container">
+    <button id="toggle">Toggle</button>
+    <br>
+    <label>
+      Animation: 
+      <select name="animations" id="animations">
+        <option value="default">default</option>
+        <option value="slide-up">slide-up</option>
+        <option value="flip-center-horizontal">flip-center-horizontal</option>
+        <option value="flip-top-vertical">flip-top-vertical</option>
+      </select>
+    </label>
+  </div>
+  <div class="controls-container">
+    <label>
+      Initial Delay:
+      <input type="range" id="initial-delay-range" value="0" min="0" max="1000"> --initial-delay: <span
+        id="initial-delay-display"></span>ms
+    </label>
+    <br>
+    <label>
+      Timing step:
+      <input type="range" id="timing-step-range" value="20" min="0" max="100"> --timing-step: <span
+        id="timing-step-display"></span>ms
+    </label>
+    <br>
+    <label>
+      Duration:
+      <input type="range" id="duration-range" value="300" min="1" max="1000"> --animation-duration: <span
+        id="duration-display"></span>ms
+    </label>
+    <br>
+    <label>
+      Perspective:
+      <input type="range" id="perspective-range" value="1000" min="200" max="2000"> perspective: <span
+        id="perspective-display"></span>px
+    </label>
+    <br>
+    <label>
+      Animation Amplification:
+      <input type="range" id="amplification-range" value="1" min="0.1" max="10" step=".1"> --animation-amplification: <span
+        id="amplification-display"></span>
+    </label>
+  </div>
+  <div class="headder">Item Controls</div>
+  <div class="controls-container">
+    <button id="toggle2">Toggle show</button>
+    <button id="toggle3">Toggle hide</button>
+  </div>
+  <script>
+
+    for (let i = 0; i < 50; i++) {
+      document.getElementById('container').innerHTML += '<div></div>';
+    }
+
+    var appearAnimation;
+    var disappearAnimation;
+    var initialDelay;
+    var duration;
+    var timingStep;
+    var perspective;
+    var style;
+    changeStyle({
+      appearAnimation: 'default-appear',
+      disappearAnimation: 'default-disappear',
+      initialDelay: 0,
+      duration: 300,
+      timingStep: 20,
+      perspective: 1000,
+      amplification: 1
+    })
+
+    function changeStyle(styles) {
+      if (typeof styles === 'object') {
+        if (typeof styles.appearAnimation !== 'undefined') {
+          appearAnimation = styles.appearAnimation;
+        }
+        if (typeof styles.disappearAnimation !== 'undefined') {
+          disappearAnimation = styles.disappearAnimation;
+        }
+        if (typeof styles.initialDelay !== 'undefined') {
+          initialDelay = styles.initialDelay;
+        }
+        if (typeof styles.perspective !== 'undefined') {
+          perspective = styles.perspective;
+        }
+        if (typeof styles.duration !== 'undefined') {
+          duration = styles.duration;
+        }
+        if (typeof styles.timingStep !== 'undefined') {
+          timingStep = styles.timingStep;
+        }
+        if (typeof styles.amplification !== 'undefined') {
+          amplification = styles.amplification;
+        }
+        style = "--appear-animation: " + appearAnimation + "; --disappear-animation: " + disappearAnimation + "; --initial-delay: " + initialDelay + "ms; --animation-duration: " + duration + "ms; --timing-step: " + timingStep + "ms; perspective: " + perspective + "px; --animation-amplification: " + amplification + ";"
+        console.log(style)
+        document.getElementById('container').style = style;
+        document.getElementById('initial-delay-display').innerHTML = initialDelay;
+        document.getElementById('duration-display').innerHTML = duration;
+        document.getElementById('timing-step-display').innerHTML = timingStep;
+        document.getElementById('perspective-display').innerHTML = perspective;
+        document.getElementById('amplification-display').innerHTML = amplification;
+      }
+    }
+
+
+    var hidden = !(document.getElementById('container').classList.contains('show-all'));
+    document.getElementById('toggle').addEventListener('click', function () {
+      if (hidden) {
+        document.getElementById('container').classList.remove('hide-all');
+        document.getElementById('container').classList.add('show-all');
+        hidden = false;
+      }
+      else {
+        document.getElementById('container').classList.add('hide-all');
+        document.getElementById('container').classList.remove('show-all');
+        hidden = true;
+      }
+    });
+    document.getElementById('toggle2').addEventListener('click', function () {
+      document.querySelectorAll('#container > div')[10].classList.toggle('show-me');
+    });
+    document.getElementById('toggle3').addEventListener('click', function () {
+      document.querySelectorAll('#container > div')[12].classList.toggle('hide-me');
+    });
+    document.getElementById('animations').addEventListener("change", function (e) {
+      console.log(e.srcElement.value);
+      changeStyle({
+        appearAnimation: e.srcElement.value + '-appear',
+        disappearAnimation: e.srcElement.value + '-disappear',
+      })
+    });
+    document.getElementById('initial-delay-range').addEventListener('input', function (e) {
+      changeStyle({
+        initialDelay: e.srcElement.value
+      })
+    }, false);
+    document.getElementById('duration-range').addEventListener('input', function (e) {
+      changeStyle({
+        duration: e.srcElement.value
+      })
+    }, false);
+    document.getElementById('perspective-range').addEventListener('input', function (e) {
+      changeStyle({
+        perspective: e.srcElement.value
+      })
+    }, false);
+    document.getElementById('timing-step-range').addEventListener('input', function (e) {
+      changeStyle({
+        timingStep: e.srcElement.value
+      })
+    }, false);
+    document.getElementById('amplification-range').addEventListener('input', function (e) {
+      changeStyle({
+        amplification: e.srcElement.value
+      })
+    }, false);
+  </script>
+</body>
+
+</html>

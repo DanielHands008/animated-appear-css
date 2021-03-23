@@ -1,0 +1,23 @@
+@keyframes flip-center-horizontal-appear {
+    from {
+        transform: rotate3d(0, 1, 0, 90deg);
+        opacity  : 0;
+    }
+
+    to {
+        transform: rotate3d(0, 1, 0, 0deg);
+        opacity  : 1;
+    }
+}
+
+@keyframes flip-center-horizontal-disappear {
+    from {
+        transform: rotate3d(0, 1, 0, 0deg);
+        opacity  : 1;
+    }
+
+    to {
+        transform: rotate3d(0, 1, 0, -90deg);
+        opacity  : 0;
+    }
+}

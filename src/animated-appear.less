@@ -1,0 +1,49 @@
+.animate-appear {
+    --initial-delay     : 0ms;
+    --timing-step       : 20ms;
+    --animation-duration: 300ms;
+    --animation-amplification: 1;
+
+    --appear-animation   : default-appear;
+    --disappear-animation: default-disappear;
+
+
+    &.all-children>*,
+    & .animate-item {
+        --animation-item-index: 0;
+        opacity               : 0;
+    }
+
+    &.all-children.show-all>*:not(.hide-me),
+    &.show-all .animate-item:not(.hide-me),
+    &>.show-me {
+        animation: var(--appear-animation) var(--animation-duration) calc((var(--timing-step) * var(--animation-item-index)) + var(--initial-delay)) forwards;
+        opacity  : 0;
+    }
+
+    &.all-children.hide-all>*:not(.show-me),
+    &.hide-all .animate-item:not(.show-me),
+    &>.hide-me {
+        animation: var(--disappear-animation) var(--animation-duration) calc((var(--timing-step) * var(--animation-item-index)) + var(--initial-delay)) forwards;
+        opacity  : 1;
+    }
+
+    &:not(.show-all):not(.hide-all) .show-me,
+    &:not(.show-all):not(.hide-all) .hide-me {
+        opacity           : 1;
+        animation-duration: 1ms;
+    }
+
+    & .remove-delay {
+        --animation-item-index: 0 !important;
+    }
+
+    &:not(.show-all):not(.hide-all) .hide-me {
+        opacity: 0;
+    }
+
+    &>.show-me,
+    &>.hide-me {
+        animation-delay: 0;
+    }
+}

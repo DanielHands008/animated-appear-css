@@ -1,0 +1,7 @@
+{
+    "watchFolder": "src",
+    "outputFolder": "dist",
+    "allowedExtensions":[".less"],
+    "enableJs": false,
+    "minified": true
+}

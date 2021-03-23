@@ -1,0 +1,27 @@
+@keyframes flip-top-vertical-appear {
+    from {
+        transform-origin: top center;
+        transform       : rotate3d(1, 0, 0, -90deg);
+        opacity         : 0;
+    }
+
+    to {
+        transform-origin: top center;
+        transform: rotate3d(1, 0, 0, 0deg);
+        opacity  : 1;
+    }
+}
+
+@keyframes flip-top-vertical-disappear {
+    from {
+        transform-origin: top center;
+        transform: rotate3d(1, 0, 0, 0deg);
+        opacity  : 1;
+    }
+
+    to {
+        transform-origin: top center;
+        transform: rotate3d(1, 0, 0, -90deg);
+        opacity  : 0;
+    }
+}

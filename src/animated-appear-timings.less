@@ -1,0 +1,9 @@
+.loop(@counter) when (@counter > 0) {
+    .loop((@counter - 1));
+    @index: @counter - 1;
+    .animate-appear.all-children>*:nth-of-type(@{counter}):not(.hide-me):not(.show-me) {
+        --animation-item-index: @index;
+    }
+}
+
+.loop(100);
