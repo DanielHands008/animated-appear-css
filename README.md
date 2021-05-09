@@ -18,8 +18,8 @@ A simple CSS library that adds show and hide animation to tiles with several opt
 |`all-children`|This adds the animation to all children of the container. (Single level only.)|
 |`show-all`|Plays the appear animation on all animated elements in the container.|
 |`hide-all`|Plays the disappear animation on all animated elements in the container.|
-|`show-me`|Plays the appear animation the the element with this class.|
-|`hide-me`|Plays the disappear animation the the element with this class.|
+|`show-me`|Plays the appear animation on the element with this class.|
+|`hide-me`|Plays the disappear animation on the element with this class.|
 |`animate-item`|Add this class to each element that will be animated. (To be used instead of `all-children`)|
 ## Options
 |Option|Default Value| Description|
@@ -27,7 +27,7 @@ A simple CSS library that adds show and hide animation to tiles with several opt
 |`--initial-delay`|0ms|Delay before animation starts.|
 |`--timing-step`|20ms|Delay between each tile's animation.|
 |`--animation-duration`|300ms|Duration of the animation of each tile.|
-|`--animation-amplification`|1|Amount to amplify some animations. eg. A value of 2 will double the distance a tile will more. (This dose not effect rotations.)|
+|`--animation-amplification`|1|Amount to amplify some animations. eg. A value of 2 will double the distance a tile will move. (This dose not effect rotations.)|
 |`--appear-animation`|default-appear|Animation to play when tiles are made visible|
 |`--disappear-animation`|default-disappear|Animation to play when tiles are made invisible|
 |`--animation-item-index`|0|This defines what order the tiles should appear. (timing-step is multiplied with the index and added to the tile's animation delay, this option should be added to each tile.)|
